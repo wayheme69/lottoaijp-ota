@@ -57,7 +57,8 @@ def parse(text, g, layout):
         if len(p) < 2 + nm + nb + 2 * nr or not p[0].isdigit():
             continue
         nums = sorted(int(x) for x in p[2:2 + nm]); bonus = sorted(int(x) for x in p[2 + nm:2 + nm + nb])
-        rest = [int(x) for x in p[2 + nm + nb:2 + nm + nb + 2 * nr + 1]]
+        # case vide (gains pas encore publiés) = 0 : le tirage reste publié sans gains
+        rest = [int(x) if x else 0 for x in p[2 + nm + nb:2 + nm + nb + 2 * nr + 1]]
         if layout == "life":       # 口数, 賞金 alternés
             counts, prizes = rest[0:2 * nr:2], rest[1:2 * nr:2]
         else:                      # 口数 ×nr puis 賞金 ×nr
